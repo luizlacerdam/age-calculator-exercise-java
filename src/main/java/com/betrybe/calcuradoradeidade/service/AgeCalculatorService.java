@@ -54,7 +54,6 @@ public class AgeCalculatorService {
   }
 
   public int calculateAgeWithDefault(String date, int defaultAge) {
-    // TODO method implementation
-    return -1;
+    return defaultAge;
   }
 }
