@@ -13,10 +13,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AgeCalculatorService {
+
+  /**
+   * Constructor.
+   */
   public int calculateAge(String dateString) {
+    validateDateIsNumeric(dateString);
+    validateSyntax(dateString);
     LocalDate dataInicial = LocalDate.parse(dateString);
     LocalDate dataFinal = LocalDate.now();
-    validateSyntax(dateString);
     Period intervalo = Period.between(dataInicial, dataFinal);
     if (intervalo.getYears() < 0) {
       throw new FutureDateException("This is a future date.");
@@ -35,15 +40,17 @@ public class AgeCalculatorService {
     if (year.length() != 4 || month.length() != 2 || day.length() != 2) {
       throw new InvalidSyntaxDateException("Invalid date format. Expected aa-mm-dd.");
     }
-
-    if (!isNumeric(year) || !isNumeric(month) || !isNumeric(day)) {
-      throw new NonNumericDateException("Date should be in numeric format.");
-    }
-
   }
 
-  public boolean isNumeric(String str) {
-    return str.matches("-?\\d+(\\.\\d+)?");  // Verifica se a string é composta apenas por dígitos
+  private void validateDateIsNumeric(String date) throws NonNumericDateException {
+    String[] dateBlocks = date.split("-");
+    for (String block : dateBlocks) {
+      try {
+        Integer.parseInt(block);
+      } catch (NumberFormatException e) {
+        throw new NonNumericDateException("Date should be in numeric format.");
+      }
+    }
   }
 
   public int calculateAgeWithDefault(String date, int defaultAge) {

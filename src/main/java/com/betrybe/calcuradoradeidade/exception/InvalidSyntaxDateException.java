@@ -3,7 +3,7 @@ package com.betrybe.calcuradoradeidade.exception;
 /**
  * Classe de messagens de errors se parametro falta.
  */
-public class InvalidSyntaxDateException extends RuntimeException{
+public class InvalidSyntaxDateException extends RuntimeException {
 
   /**
    * Construtor da classe.

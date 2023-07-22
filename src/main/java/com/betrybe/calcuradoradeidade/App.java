@@ -13,5 +13,7 @@ public class App {
   /**
    * main method.
    */
-  public static void main(String[] args) {SpringApplication.run(App.class, args);}
+  public static void main(String[] args) {
+    SpringApplication.run(App.class, args);
+  }
 }
