@@ -14,6 +14,7 @@ public class AgeCalculatorService {
   public int calculateAge(String dateString) {
     LocalDate dataInicial = LocalDate.parse(dateString);
     LocalDate dataFinal = LocalDate.now();
+
     Period intervalo = Period.between(dataInicial, dataFinal);
     if (intervalo.getYears() < 0) {
       throw new FutureDateException("This is a future date.");
