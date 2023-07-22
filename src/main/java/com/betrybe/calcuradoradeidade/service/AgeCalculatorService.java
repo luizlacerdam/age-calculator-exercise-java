@@ -2,6 +2,7 @@ package com.betrybe.calcuradoradeidade.service;
 
 import com.betrybe.calcuradoradeidade.exception.FutureDateException;
 import com.betrybe.calcuradoradeidade.exception.InvalidSyntaxDateException;
+import com.betrybe.calcuradoradeidade.exception.NonNumericDateException;
 import java.time.LocalDate;
 import java.time.Period;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,15 @@ public class AgeCalculatorService {
     if (year.length() != 4 || month.length() != 2 || day.length() != 2) {
       throw new InvalidSyntaxDateException("Invalid date format. Expected aa-mm-dd.");
     }
+
+    if (!isNumeric(year) || !isNumeric(month) || !isNumeric(day)) {
+      throw new NonNumericDateException("Date should be in numeric format.");
+    }
+
+  }
+
+  public boolean isNumeric(String str) {
+    return str.matches("-?\\d+(\\.\\d+)?");  // Verifica se a string é composta apenas por dígitos
   }
 
   public int calculateAgeWithDefault(String date, int defaultAge) {
